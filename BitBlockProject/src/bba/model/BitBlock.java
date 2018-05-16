@@ -17,6 +17,10 @@ public class BitBlock {
 	
 	/** the arrayList of TokenizedPixel type to construct a BitBlock */
 	private final List<TokenizedPixel> pixelList;
+	/** an integer array of {width, height, remainder} in pixel units. 
+	 * @see #calcDimension() 
+	 */
+	private final int[] dimensions;
 	
 	/** The constructor. <p> takes an input object and creates a pixelList from 
 	 * the palette's tuples of the token-color relation.
@@ -25,6 +29,7 @@ public class BitBlock {
 	 */
 	public BitBlock(Input input, ColorPalette palette) {
 		this.pixelList = SCParser.parse(input, palette);
+		this.dimensions = calcDimension();
 	}
 
 	/**
@@ -34,16 +39,24 @@ public class BitBlock {
 		return pixelList;
 	}
 	
+	
 	/**
-	 * Calculates the dimensions of the BitBlock based on the size of this.pixelList. 
+	 * @return the dimensions
+	 */
+	public int[] getDimension() {
+		return dimensions;
+	}
+	
+	/**
+	 * Calculates the dimensions of the BitBlock based on the size of this.pixelList.
+	 * result would display x pixels to a row, y total rows, and r added to the y-th row 
 	 * <p>
 	 * NOTE: If the returned value's r == 0, then the
 	 * final row should be filled, otherwise the final row should have "r" many pixels. <p>
 	 * x is width, y is height, r is remainder.
-	 * @return an integer array of {x, y, r}.
-	 *  result would display x pixels to a row, y total rows, and r added to the y-th row
+	 * @return an integer array of {x, y, r}
 	 */
-	public int[] getDimension() {
+	private int[] calcDimension() {
 		int x = 0; 	//width
 		int y = 0; 	//height
 		int r = 0;	//remainder
