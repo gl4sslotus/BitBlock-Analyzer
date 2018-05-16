@@ -76,6 +76,9 @@ public class BitBlockGuiController {
 	private int idIndex = 0;			//start at 0
 	private List<Input> inputM = new ArrayList<Input>();
 	
+	/**
+	 * 
+	 */
 	public BitBlockGuiController() {
 		
 	}
@@ -184,7 +187,7 @@ public class BitBlockGuiController {
 	 */
 	private void handleStartClick() {
 		//create a BitBlock object, which takes the input and parses it into a pixelList
-		bb = new BitBlock(inputM.get(0));
+		bb = new BitBlock(inputM.get(0), null); //TODO: write prompt to determine palette
 		
 		// test printing token
 		int i = 0;
@@ -198,11 +201,9 @@ public class BitBlockGuiController {
 		}
 		
 		ControllerUtilHandlers.displayStats(statTextArea, bb.getPixelList());
-		DrawPixels pixels = new DrawPixels();
-		pixels.drawPixels(canvas, bb, scale);
+		DrawPixels.drawPixels(canvas, bb, scale);
 		//so that we don't have the pixel list persist between refreshes, create as object.
-		DisplayTextOnClick textDisplayer = new DisplayTextOnClick();
-		textDisplayer.writeText(codeField, canvas, bb.getPixelList(), bb);
+		DisplayTextOnClick.writeText(codeField, canvas, bb);
 		
 		//update the buttons able to be clicked
 		start.setDisable(true);
@@ -260,12 +261,10 @@ public class BitBlockGuiController {
 	    gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		
 		//pass it to BitBlock and draw the pixels
-		bb = new BitBlock(tempInput);
+		bb = new BitBlock(tempInput, null); //TODO:include selected palette
 		ControllerUtilHandlers.displayStats(statTextArea, bb.getPixelList());
-		DrawPixels pixels = new DrawPixels();
-		pixels.drawPixels(canvas, bb, scale);
-		DisplayTextOnClick textDisplayer = new DisplayTextOnClick();
-		textDisplayer.writeText(codeField, canvas, bb.getPixelList(), bb);
+		DrawPixels.drawPixels(canvas, bb, scale);
+		DisplayTextOnClick.writeText(codeField, canvas, bb);
 	}
 	
 	private void handlePrintClick() {

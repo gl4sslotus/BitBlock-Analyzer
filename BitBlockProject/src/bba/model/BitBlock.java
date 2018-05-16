@@ -2,34 +2,29 @@ package bba.model;
 
 import java.util.*;
 
+import parser.ColorPalette;
 import parser.SCParser;
 import parser.TokenizedPixel;
 
 /**
  * BitBlock type, a visual representation of SourceCode. 
  * The BitBlock is comprised of colored pixels, a pixel for each literal and expression.
- * "Needs to produce a BitBlocks"
+ * The color of each pixel within the list is defined on construction.
  * @author Triston Scallan
  *
  */
 public class BitBlock {
 	
 	/** the arrayList of TokenizedPixel type to construct a BitBlock */
-	private List<TokenizedPixel> pixelList = new ArrayList<TokenizedPixel>();
-	private SCParser parser;
+	private final List<TokenizedPixel> pixelList;
 	
-	/** The constructor. <p> takes an input object and creates the associated pixelList from it */
-	public BitBlock(Input input) {
-		parser = new SCParser();
-		parser.parse(input);
-		this.pixelList = parser.getPixelList();
-	}
-	
-	/**
-	 * @return the parser
+	/** The constructor. <p> takes an input object and creates a pixelList from 
+	 * the palette's tuples of the token-color relation.
+	 * @param input given data input
+	 * @param palette the palette associated with this BitBlock instance
 	 */
-	public SCParser getParser() {
-		return parser;
+	public BitBlock(Input input, ColorPalette palette) {
+		this.pixelList = SCParser.parse(input, palette);
 	}
 
 	/**
@@ -38,14 +33,6 @@ public class BitBlock {
 	public List<TokenizedPixel> getPixelList() {
 		return pixelList;
 	}
-
-	/**
-	 * @param pixelList the pixelList to set
-	 */
-	public void setPixelList(List<TokenizedPixel> pixelList) {
-		this.pixelList = pixelList;
-	} 
-	
 	
 	/**
 	 * Calculates the dimensions of the BitBlock based on the size of this.pixelList. 

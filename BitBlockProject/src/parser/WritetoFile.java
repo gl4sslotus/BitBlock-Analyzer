@@ -1,13 +1,8 @@
 package parser;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.imageio.ImageIO;
-
 import bba.model.BitBlock;
 import javafx.scene.paint.Color;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +14,6 @@ import java.io.IOException;
 */
 public class WritetoFile {
 	
-	private List<Color> tColorList = new ArrayList<Color>();
 	private Color cPixel;
 	
 	/**
@@ -35,10 +29,6 @@ public class WritetoFile {
 		int side = bitblock.getDimension()[0];
 		BufferedImage image = new BufferedImage(side*scale, side*scale, BufferedImage.TYPE_INT_RGB);
 		
-		// create array of color
-		for (int i = 0; i < bitblock.getPixelList().size(); i++)
-			tColorList.add(bitblock.getPixelList().get(i).getColor());
-		
 		// setting up image
 		int index = 0;
 		for (int y = 0; y < side; y++)
@@ -46,10 +36,10 @@ public class WritetoFile {
 			for (int x = 0; x < side; x++)
 			{
 				// get color 
-				if (index < tColorList.size())
-					cPixel = tColorList.get(index);
+				if (index < bitblock.getPixelList().size())
+					cPixel = bitblock.getPixelList().get(index).getColor();
 				else // padding
-					cPixel = ColorPalette.PALETTE.get(null);
+					cPixel = Color.BLACK;
 
 				index++;
 				// scale each pixel

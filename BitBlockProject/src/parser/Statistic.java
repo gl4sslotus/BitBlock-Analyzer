@@ -13,7 +13,7 @@ import java.util.Map.Entry;
  * @author Anthony Hoang
  */
 public class Statistic {
-	
+	//TODO: convert into a set of static functions.
 	
 	private List<String> tokenList = new ArrayList<String>();
 	private List<TokenizedPixel> pixelList = new ArrayList<TokenizedPixel>();
@@ -26,6 +26,7 @@ public class Statistic {
 
 	/**
 	 * set the token array list
+	 * @param pixelList list of parsed pixels
 	 */
 	public Statistic(List<TokenizedPixel> pixelList)
 	{
@@ -41,12 +42,18 @@ public class Statistic {
 		uniqToken.addAll(tokenList);
 	}
 
+	/**
+	 * @param tokenList tokenList to set
+	 */
 	public void setTokenList(List<String> tokenList)
 	{
 		this.tokenList = tokenList;
 		uniqToken.addAll(tokenList);
 	}
 	
+	/**
+	 * @param pixelList pixelList to set
+	 */
 	public void setPixelList(List<TokenizedPixel> pixelList)
 	{
 		this.pixelList = pixelList;
@@ -100,11 +107,11 @@ public class Statistic {
 		return count;
 	}
 	
-	/**
-	 * @return token of the mode of the list 
-	 * 		   but ignore overly commong token
+	/**Retrieves the mode of the tokenList. Blacklists out highly common single
+	 * character symbols for a meaningful result.
+	 * @return string token
 	 */
-	public String getUmode() { //TODO: set up the mode functions
+	public String getUmode() { 
 		
 		// put token list in HashMap in form of {token: value}
 		for (int i = 0; i < tokenList.size(); i++) {
@@ -116,7 +123,7 @@ public class Statistic {
 		}
 
 		int maxCount = 0;
-		String commonToken = null;
+		String uncommonToken = null;
 
 		for (Entry<String, Integer> entry : mapToken.entrySet()) {
 
@@ -125,18 +132,18 @@ public class Statistic {
 
 			if ((value > maxCount) & (!key.matches("^[\\(\\) \\*;\\.\\w]$"))) {
 				maxCount = value;
-				commonToken = key;
+				uncommonToken = key;
 			}
 		}
-		System.out.println("most common token: " + commonToken);
-		return commonToken;
+		System.out.println("most common token: " + uncommonToken);
+		return uncommonToken;
 	}
 		
 	/**
 	 * @return most appearing token
 	 * 	
 	 */
-	public String getCmode() { //TODO: set up the mode functions
+	public String getCmode() { 
 		
 		// put token list in HashMap in form of {token: value}
 		for (int i = 0; i < tokenList.size(); i++) {
