@@ -28,10 +28,16 @@ public class MainApp extends Application
 		}
 	}
 	
+	/**
+	 * @return The primary stage
+	 */
 	public static Stage getStage() {		//use this to retrieve the stage
 		return stage; 
 	}
 	
+	/**
+	 * @param args
+	 */
 	public static void main(String[] args) 
 	{
 		launch(args);

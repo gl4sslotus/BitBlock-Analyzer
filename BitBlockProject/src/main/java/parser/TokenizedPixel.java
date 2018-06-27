@@ -17,6 +17,11 @@ public class TokenizedPixel {
 	private Color color;
 	
 	
+	/**
+	 * Default constructor
+	 * @param token The string the pixel represents
+	 * @param color The color of the pixel
+	 */
 	public TokenizedPixel(String token, Color color) {
 		this.token = token;
 		this.color = color;
